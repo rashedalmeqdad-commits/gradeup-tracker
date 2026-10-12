@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GradeUp — Grade 11 Tracker</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#121a2e;--panel2:#18223a;--line:#283552;--text:#f4f7ff;--muted:#9aa8c4;--blue:#7c9cff;--mint:#66e0b0;--amber:#ffd27a;--red:#ff8d9a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top left,#172447 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.wrap{max-width:1120px;margin:auto;padding:28px 18px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px}.brand{display:flex;align-items:center;gap:12px}.logo{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#7c9cff,#8a6dff);font-weight:900;font-size:20px;color:white;box-shadow:0 8px 30px #586aff33}.eyebrow{color:var(--mint);text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:1.6px}.brand h1{margin:0;font-size:25px;letter-spacing:-.7px}.sub{margin:2px 0 0;color:var(--muted);font-size:13px}.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+button,.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:10px 13px;border-radius:11px;cursor:pointer;font-weight:700;font-size:13px;transition:.15s}button:hover,.btn:hover{border-color:var(--blue);transform:translateY(-1px)}button.primary{background:var(--blue);border-color:var(--blue);color:#0b1020}button.ghost{background:transparent}button.small{padding:7px 10px}
+.hero{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-bottom:16px}.hero-main,.stat,.card{background:linear-gradient(145deg,#141e34,#10182b);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 10px 35px #00000014}.hero-main{position:relative;overflow:hidden}.hero-main:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-75px;top:-95px;background:#7c9cff12}.hero h2{font-size:26px;line-height:1.2;letter-spacing:-.7px;margin:6px 0 9px}.hero p{color:var(--muted);max-width:560px;margin:0 0 18px}.week-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.week-row select,.field input,.field select,.field textarea{background:#0d1528;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px 11px;font:inherit;width:100%;outline:none}.week-row select{width:auto;min-width:130px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat{padding:18px}.stat .label{font-size:12px;color:var(--muted)}.stat .number{font-size:30px;font-weight:850;letter-spacing:-1px;margin:5px 0 0}.stat .hint{font-size:12px;color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:28px 0 13px;flex-wrap:wrap}.section-head h2{margin:0;font-size:20px;letter-spacing:-.4px}.section-head p{margin:3px 0 0;color:var(--muted);font-size:13px}.class-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.class-card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:18px;min-width:0}.class-top{display:flex;justify-content:space-between;gap:12px;align-items:start}.class-name{font-size:15px;font-weight:800}.priority{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--amber);font-weight:800;margin-top:3px}.grade{font-size:25px;font-weight:850;letter-spacing:-.7px;white-space:nowrap}.grade small{font-size:12px;color:var(--muted);font-weight:600}.progress{height:7px;background:#27324b;border-radius:20px;overflow:hidden;margin:12px 0 8px}.progress span{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,var(--blue),var(--mint));transition:width .3s}.grade-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;gap:8px}.class-actions{display:flex;align-items:center;gap:8px;margin-top:15px}.count{font-weight:800;min-width:78px;text-align:center;font-size:13px}.session-btn{flex:1;background:#23345a;border-color:#354b7c}.update{margin-top:14px;padding-top:13px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:9px}.field label{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}.field input{font-size:13px;padding:9px}.muted{color:var(--muted)}.lower{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:16px}.card h3{margin:0 0 5px;font-size:16px}.card .intro{margin:0 0 16px;color:var(--muted);font-size:13px}.task-list{display:grid;gap:10px}.task{display:flex;gap:10px;align-items:start;background:#0d1528;border:1px solid var(--line);padding:11px;border-radius:12px}.task input{accent-color:var(--mint);margin-top:4px;width:16px;height:16px}.task span{font-size:13px}.task.done span{text-decoration:line-through;color:var(--muted)}textarea{min-height:125px;resize:vertical}.notes-actions{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}.history{width:100%;border-collapse:collapse;font-size:13px}.history th,.history td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line)}.history th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}.empty{text-align:center;color:var(--muted);padding:20px!important}.footer{margin-top:25px;text-align:center;color:var(--muted);font-size:12px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#e6fff4;color:#10231b;padding:11px 16px;border-radius:12px;font-weight:750;box-shadow:0 8px 30px #0005;display:none;z-index:10}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.class-grid,.lower{grid-template-columns:1fr}.wrap{padding:20px 13px 45px}.hero-main,.card{padding:18px}.brand h1{font-size:22px}.hero h2{font-size:23px}}
+@media print{body{background:white;color:#111}.top-actions,button,.class-actions{display:none!important}.hero-main,.stat,.card,.class-card{background:white;color:#111;border:1px solid #ccc;box-shadow:none}.muted,.sub,.hero p,.section-head p,.grade-meta,.field label{color:#555}.class-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">G</div><div><div class="eyebrow">Your academic command center</div><h1>GradeUp</h1><p class="sub">Grade 11 · Small sessions, real progress.</p></div></div>
+    <div class="top-actions">
+      <button class="ghost" id="exportBtn">Export backup</button>
+      <button class="ghost" id="importBtn">Import backup</button>
+      <input type="file" id="importFile" accept="application/json" hidden>
+      <button class="primary" id="printBtn">Print report</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-main">
+      <div class="eyebrow">Your plan, your pace</div>
+      <h2>Make the next test<br>your best test.</h2>
+      <p>Prioritize English, Pre-Calculus, U.S. History, and AICE Physics. Keep your strong classes steady without spending all your study time on them.</p>
+      <div class="week-row"><label for="weekSelect" class="muted">Tracking week</label><select id="weekSelect"><option>Week 1</option><option>Week 2</option><option>Week 3</option><option>Week 4</option><option>Week 5</option><option>Week 6</option><option>Week 7</option><option>Week 8</option><option>Week 9</option><option>Week 10</option><option>Week 11</option><option>Week 12</option></select><button class="small" id="resetWeekBtn">Reset this week's counts</button></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="label">Sessions this week</div><div class="number" id="totalSessions">0</div><div class="hint">Goal: 6 sessions</div></div>
+      <div class="stat"><div class="label">Weekly goal</div><div class="number" id="goalPercent">0%</div><div class="hint">of your 6-session goal</div></div>
+      <div class="stat"><div class="label">Classes to focus on</div><div class="number">4</div><div class="hint">English, Math, History, Physics</div></div>
+      <div class="stat"><div class="label">Grade entries</div><div class="number" id="gradeEntries">0</div><div class="hint">Scores saved in history</div></div>
+    </div>
+  </section>
+
+  <div class="section-head"><div><h2>Your classes</h2><p>Count a session when you finish studying. Update a grade after an assessment.</p></div></div>
+  <section class="class-grid" id="classGrid"></section>
+
+  <section class="lower">
+    <div class="card">
+      <h3>Weekly checklist</h3><p class="intro">Tick these off as you complete them. Checklist progress resets when you change weeks.</p>
+      <div class="task-list" id="checklist">
+        <label class="task"><input type="checkbox" data-task="english"><span>Complete two English practice sessions</span></label>
+        <label class="task"><input type="checkbox" data-task="math"><span>Complete two Pre-Calculus practice sessions</span></label>
+        <label class="task"><input type="checkbox" data-task="physics"><span>Complete one Physics practice session</span></label>
+        <label class="task"><input type="checkbox" data-task="history"><span>Review History and test myself from memory</span></label>
+        <label class="task"><input type="checkbox" data-task="mistakes"><span>Correct mistakes from a practice quiz</span></label>
+        <label class="task"><input type="checkbox" data-task="deadlines"><span>Check grades, deadlines, and upcoming tests</span></label>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Study notes</h3><p class="intro">Write down upcoming tests, tricky topics, and mistakes to revisit.</p>
+      <div class="field"><label for="notes">NOTES FOR THIS WEEK</label><textarea id="notes" placeholder="Example: English quiz Friday — practice main idea and evidence questions."></textarea></div>
+      <div class="notes-actions"><span class="muted" id="saveStatus">Autosaves on this device</span><button class="small" id="clearNotes">Clear notes</button></div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:16px">
+    <div class="section-head" style="margin-top:0"><div><h2>Grade history</h2><p>Every saved score is kept so you can see your progress over time.</p></div><button class="small ghost" id="clearHistory">Clear history</button></div>
+    <div style="overflow-x:auto"><table class="history"><thead><tr><th>Date</th><th>Class</th><th>Score</th><th>Change from start</th><th></th></tr></thead><tbody id="historyBody"><tr><td colspan="5" class="empty">No grades recorded yet. Add your first updated grade above.</td></tr></tbody></table></div>
+  </section>
+  <div class="footer">Your data stays in this browser on this device. Use Export backup to keep a copy or move it to another device.</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const defaults=[
+{id:"english",name:"English 3",start:71,target:85,priority:"Top priority",focus:true},
+{id:"history",name:"U.S. History",start:83,target:90,priority:"High priority",focus:true},
+{id:"physics",name:"AICE Physics 1 AS",start:88,target:92,priority:"High priority",focus:true},
+{id:"math",name:"Pre-Calculus Honors",start:80,target:88,priority:"High priority",focus:true},
+{id:"drawing",name:"Drawing 1",start:96,target:95,priority:"Maintain",focus:false},
+{id:"basketball",name:"Basketball",start:100,target:95,priority:"Maintain",focus:false},
+{id:"critical",name:"Critical Thinking Skills",start:91,target:90,priority:"Maintain",focus:false}
+];
+const STORE="gradeup-grade11-v1";
+let data=load();
+function fresh(){return {week:"Week 1",sessions:{},grades:{},history:[],checks:{},notes:{}}}
+function load(){try{return Object.assign(fresh(),JSON.parse(localStorage.getItem(STORE)||"{}"))}catch(e){return fresh()}}
+function save(){localStorage.setItem(STORE,JSON.stringify(data));renderStats()}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function currentSessions(){return data.sessions[data.week]||(data.sessions[data.week]={})}
+function currentChecks(){return data.checks[data.week]||(data.checks[data.week]={})}
+function currentNotes(){return data.notes[data.week]||""}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.style.display="none",2200)}
+function renderClasses(){
+ const grid=document.getElementById("classGrid");
+ grid.innerHTML=defaults.map(s=>{
+ const latest=data.grades[s.id]??s.start, count=currentSessions()[s.id]||0;
+ const pct=Math.max(0,Math.min(100,Number(latest)||0));
+ const diff=Number(latest)-s.start;
+ return `<article class="class-card">
+  <div class="class-top"><div><div class="class-name">${s.name}</div><div class="priority" style="color:${s.focus?'var(--amber)':'var(--mint)'}">${s.priority}</div></div><div class="grade">${Number(latest).toFixed(1)}<small>%</small></div></div>
+  <div class="progress"><span style="width:${pct}%"></span></div>
+  <div class="grade-meta"><span>Start: ${s.start}%</span><span>Target: ${s.target}%</span><span>${diff>0?'+':''}${diff.toFixed(1)} pts</span></div>
+  <div class="class-actions"><button class="small" data-action="minus" data-id="${s.id}" aria-label="Remove session">−</button><div class="count">${count} session${count===1?'':'s'}</div><button class="small session-btn" data-action="plus" data-id="${s.id}">+ Session done</button></div>
+  <div class="update"><div class="field"><label for="grade-${s.id}">LATEST GRADE (%)</label><input id="grade-${s.id}" type="number" min="0" max="100" step="0.1" placeholder="${s.start}" value="${data.grades[s.id]??''}"></div><div style="display:flex;align-items:end"><button class="primary" style="width:100%" data-action="grade" data-id="${s.id}">Save score</button></div></div>
+ </article>`;
+ }).join("");
+}
+function renderStats(){
+ const counts=currentSessions(), total=Object.values(counts).reduce((a,b)=>a+(Number(b)||0),0);
+ document.getElementById("totalSessions").textContent=total;
+ document.getElementById("goalPercent").textContent=Math.min(100,Math.round(total/6*100))+"%";
+ document.getElementById("gradeEntries").textContent=data.history.length;
+}
+function renderChecks(){const checks=currentChecks();document.querySelectorAll("[data-task]").forEach(el=>{el.checked=!!checks[el.dataset.task];el.closest(".task").classList.toggle("done",el.checked)})}
+function renderNotes(){document.getElementById("notes").value=currentNotes()}
+function renderHistory(){
+ const body=document.getElementById("historyBody");
+ if(!data.history.length){body.innerHTML='<tr><td colspan="5" class="empty">No grades recorded yet. Add your first updated grade above.</td></tr>';return}
+ body.innerHTML=[...data.history].reverse().map((h,i)=>`<tr><td>${esc(h.date)}</td><td>${esc(h.name)}</td><td><strong>${Number(h.score).toFixed(1)}%</strong></td><td>${h.diff>0?'+':''}${Number(h.diff).toFixed(1)} pts</td><td><button class="small ghost" data-action="delete-history" data-index="${data.history.length-1-i}">Delete</button></td></tr>`).join("");
+}
+function render(){document.getElementById("weekSelect").value=data.week;renderClasses();renderStats();renderChecks();renderNotes();renderHistory()}
+document.getElementById("weekSelect").addEventListener("change",e=>{data.week=e.target.value;save();render()});
+document.getElementById("classGrid").addEventListener("click",e=>{
+ const b=e.target.closest("button[data-action]");if(!b)return;const id=b.dataset.id,action=b.dataset.action;
+ if(action==="plus"||action==="minus"){const c=currentSessions();c[id]=Math.max(0,(c[id]||0)+(action==="plus"?1:-1));save();renderClasses();renderStats();toast(action==="plus"?"Study session counted!":"Session count updated.");}
+ if(action==="grade"){
+  const input=document.getElementById("grade-"+id),score=Number(input.value),s=defaults.find(x=>x.id===id);
+  if(input.value.trim()===""||!Number.isFinite(score)||score<0||score>100){toast("Enter a grade between 0 and 100.");return}
+  const previous=data.grades[id]??s.start;data.grades[id]=score;data.history.push({date:new Date().toLocaleDateString(),id,name:s.name,score,diff:score-s.start,previous});
+  save();renderClasses();renderHistory();toast("Grade saved to your history.");
+ }
+});
+document.getElementById("historyBody").addEventListener("click",e=>{const b=e.target.closest('[data-action="delete-history"]');if(!b)return;data.history.splice(Number(b.dataset.index),1);save();renderHistory()});
+document.querySelectorAll("[data-task]").forEach(el=>el.addEventListener("change",()=>{currentChecks()[el.dataset.task]=el.checked;save();el.closest(".task").classList.toggle("done",el.checked)}));
+document.getElementById("notes").addEventListener("input",e=>{data.notes[data.week]=e.target.value;save();document.getElementById("saveStatus").textContent="Saved on this device"});
+document.getElementById("clearNotes").addEventListener("click",()=>{if(!confirm("Clear notes for "+data.week+"?"))return;data.notes[data.week]="";save();renderNotes();toast("Notes cleared.")});
+document.getElementById("resetWeekBtn").addEventListener("click",()=>{if(!confirm("Reset session counts and checklist for "+data.week+"? Your grade history and notes will stay."))return;data.sessions[data.week]={};data.checks[data.week]={};save();render();toast("This week's counts reset.")});
+document.getElementById("clearHistory").addEventListener("click",()=>{if(!confirm("Delete all grade history? This cannot be undone unless you exported a backup."))return;data.history=[];save();renderHistory();toast("Grade history cleared.")});
+document.getElementById("exportBtn").addEventListener("click",()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="gradeup-backup.json";a.click();URL.revokeObjectURL(a.href);toast("Backup exported.")});
+document.getElementById("importBtn").addEventListener("click",()=>document.getElementById("importFile").click());
+document.getElementById("importFile").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{const parsed=JSON.parse(await f.text());if(!parsed||typeof parsed!=="object"||!parsed.sessions||!parsed.history)throw new Error();if(!confirm("Import this backup and replace the current tracker data? Export your current data first if you want to keep it."))return;data=Object.assign(fresh(),parsed);save();render();toast("Backup imported.")}catch(err){toast("That backup file could not be read.")}e.target.value=""});
+document.getElementById("printBtn").addEventListener("click",()=>window.print());
+render();
+</script>
+</body>
+</html>
